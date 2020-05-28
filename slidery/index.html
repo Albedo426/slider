@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+	<style type="text/css">
+		#slider{
+			position:relative;
+			margin:0 auto;
+			width:950px;
+			height:400px;
+			overflow:hidden;
+
+		}
+		#slider img{
+			width:950px;
+			height:400px;
+		}
+ 		#slider li{
+ 			list-style:none;
+ 		}
+ 		.sliderbutton{
+ 			position:relative;
+ 			margin:0 auto;
+ 			width:120px;
+ 			height: 123px;
+ 			margin-top:-25px;
+ 		}
+		.sliderbutton li{
+			list-style: none;
+			padding:5px;
+			background:red;
+			float:left;
+			margin-right:10px;
+			border-radius:10px;
+		}
+		#sliderleft{
+			cursor:pointer;
+			background:rgba(0,0,0,0.2);
+			position:absolute;
+			width:50px;
+			height:400px;
+			line-height:400px;
+		}
+		#sliderright{
+			margin-left:900px;
+			cursor:pointer;
+			background:rgba(0,0,0,0.2);
+			position:absolute;
+			width:50px;
+			height:400px;
+			line-height:400px;
+		}
+	</style>
+</head>
+<body>
+	<div id="slider">
+		<div id="sliderleft"></div>
+		<div id="sliderright"></div>
+		
+		<li><img src="img/1.jpg" alt=""> </li>
+		<li><img src="img/2.jpg" alt=""> </li>
+		<li><img src="img/3.jpg" alt=""> </li>		
+		<li><img src="img/4.jpg" alt=""> </li>	
+	
+		
+	</div>
+		<div class="sliderbutton">
+		    <li></li>
+		    <li></li>
+		    <li></li>
+		    <li></li>
+		</div>
+	<script type="text/javascript">
+		$(document).ready(function(){
+			var index=0;
+			$('.sliderbutton li:first').css('background','yellow');
+			$.slider=function(toplam){
+				$('#slider li').hide();
+				if(index < toplam-1){
+					index++;
+					$('.sliderbutton li').css('background','red');
+					$('.sliderbutton li:eq('+index+')').css('background','yellow');
+					$('#slider li:eq('+index+')').fadeIn("fast");
+					
+				}
+				else if(index < 0){
+	                index = toplam-1;
+	                $('.sliderbutton li').css('background','red');
+	                $('.sliderbutton li:eq('+index+')').css('background','yellow');
+	                $('#slider li:eq('+index+')').fadeIn("fast");
+            	}
+				else{
+					
+					index=0;
+					$('.sliderbutton li').css('background','red');
+					$('#slider li:first').fadeIn("fast");
+					$('.sliderbutton li:first').css('background','yellow');
+				}
+			}
+			$('#sliderright').click(function(){
+				$('#slider li').hide();
+				if(index<3){
+					index++;
+					
+					$('.sliderbutton li').css('background','red');
+					$('.sliderbutton li:eq('+index+')').css('background','yellow');
+					$('#slider li:eq('+index+')').fadeIn("fast");
+
+				}else{
+					index=0;
+					$('#slider li:first').fadeIn("fast");
+					$('.sliderbutton li').css('background','red');
+					$('.sliderbutton li:first').css('background','yellow');
+				}
+				alert(index);
+			});
+			$('#sliderleft').click(function(){
+				$('#slider li').hide();
+				if(index>0){
+					index--;
+					
+					$('.sliderbutton li').css('background','red');
+					$('.sliderbutton li:eq('+index+')').css('background','yellow');
+					$('#slider li:eq('+index+')').fadeIn("fast");
+
+				}else{
+					index=3;
+					$('#slider li:last').fadeIn("fast");
+					$('.sliderbutton li').css('background','red');
+					$('.sliderbutton li:last').css('background','yellow');
+				}
+				alert(index);
+			});
+               	
+			$('.sliderbutton li').click(function(){ 
+				var indexvalue = $(this).index(); 
+				index = indexvalue;
+				$('#slider li').hide()
+				$('.sliderbutton li').css('background','red');
+				$('.sliderbutton li:eq('+indexvalue+')').css('background','yellow');
+				$('#slider li:eq('+indexvalue+')').fadeIn("fast");
+				
+			});
+			var lenghtli =$('#slider li').length;
+			var interval= setInterval('$.slider('+lenghtli+')',3000);
+
+
+			alert(lenghtli);
+		});
+	</script>
+</body>
+</html>
